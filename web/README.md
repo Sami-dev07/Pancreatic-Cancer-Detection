@@ -80,6 +80,4 @@ Point DNS to Vercel/Netlify or your static host. Ensure the FastAPI server allow
 
 This UI is for **research / education**. Always show the in-app disclaimer; do not present outputs as a diagnosis.
 
-## License
 
-Use in line with your university project and dataset terms.
