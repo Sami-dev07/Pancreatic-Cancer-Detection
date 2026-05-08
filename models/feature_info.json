@@ -1,0 +1,51 @@
+{
+  "age": {
+    "title": "Age",
+    "units": "years",
+    "description": "Patient age at time of sampling.",
+    "dataset_source": "Debernardi et al. 2020 dataset column: age",
+    "effect_note": "In many PDAC risk models, higher age is often associated with higher predicted risk. This app shows a model output, not a diagnosis."
+  },
+  "sex": {
+    "title": "Sex",
+    "units": null,
+    "description": "Recorded biological sex in the dataset (M/F).",
+    "dataset_source": "Debernardi et al. 2020 dataset column: sex",
+    "effect_note": "Categorical input used by the model. Any association depends on the training data distribution."
+  },
+  "plasma_CA19_9": {
+    "title": "Plasma CA19-9",
+    "units": "U/mL",
+    "description": "Carbohydrate antigen 19-9 (CA19-9) is a serum biomarker commonly measured in pancreatic disease evaluation.",
+    "dataset_source": "Debernardi et al. 2020 dataset column: plasma_CA19_9",
+    "effect_note": "Higher values can increase predicted risk in many models, but interpretation depends on clinical context and can be elevated for non-cancer reasons."
+  },
+  "creatinine": {
+    "title": "Creatinine",
+    "units": "mg/dL",
+    "description": "Serum creatinine is a marker related to kidney function and can correlate with patient physiology and lab measurement context.",
+    "dataset_source": "Debernardi et al. 2020 dataset column: creatinine",
+    "effect_note": "Used as an input feature; any relationship to predicted risk is learned from the dataset and is not necessarily causal."
+  },
+  "LYVE1": {
+    "title": "LYVE1",
+    "units": "relative level",
+    "description": "LYVE1 is a protein biomarker measured in blood in the referenced study.",
+    "dataset_source": "Debernardi et al. 2020 dataset column: LYVE1",
+    "effect_note": "The model learns patterns across biomarker levels; direction of effect can vary by model and cohort."
+  },
+  "REG1B": {
+    "title": "REG1B",
+    "units": "relative level",
+    "description": "REG1B is a protein biomarker measured in blood in the referenced study.",
+    "dataset_source": "Debernardi et al. 2020 dataset column: REG1B",
+    "effect_note": "The model uses REG1B jointly with other biomarkers; individual values should not be interpreted in isolation."
+  },
+  "TFF1": {
+    "title": "TFF1",
+    "units": "relative level",
+    "description": "TFF1 is a protein biomarker measured in blood in the referenced study.",
+    "dataset_source": "Debernardi et al. 2020 dataset column: TFF1",
+    "effect_note": "The model uses TFF1 jointly with other biomarkers; changes in predicted risk reflect the learned multivariate pattern."
+  }
+}

@@ -1,0 +1,10 @@
+﻿.env
+web/node_modules/
+web/dist/
+node_modules/
+__pycache__/
+venv/
+.venv/
+data/
+dataset/
+datasets/

@@ -1,0 +1,56 @@
+{
+  "data_path": "data/Debernardi et al 2020 data.csv",
+  "target_definition": "1 = PDAC (diagnosis == 3), 0 = non-PDAC (diagnosis in [1, 2])",
+  "feature_columns": [
+    "age",
+    "sex",
+    "plasma_CA19_9",
+    "creatinine",
+    "LYVE1",
+    "REG1B",
+    "TFF1"
+  ],
+  "best_model": "random_forest",
+  "model_selection": {
+    "method": "5-fold_stratified_CV_train_only_SMOTE_inside_each_fold",
+    "primary_metric": "roc_auc_mean",
+    "cv_scores": {
+      "logistic_regression": {
+        "roc_auc_mean": 0.8909274193548388
+      },
+      "random_forest": {
+        "roc_auc_mean": 0.9395145289298515
+      },
+      "xgboost": {
+        "roc_auc_mean": 0.934891833077317
+      },
+      "ann": {
+        "roc_auc_mean": 0.9202444956477214
+      }
+    }
+  },
+  "models_trained": [
+    "logistic_regression",
+    "random_forest",
+    "xgboost",
+    "ann"
+  ],
+  "train_size": 472,
+  "test_size": 118,
+  "class_counts_train": {
+    "0": 313,
+    "1": 159
+  },
+  "class_counts_test": {
+    "0": 78,
+    "1": 40
+  },
+  "models_available": [
+    "lr",
+    "rf",
+    "xgb",
+    "ann"
+  ],
+  "ann_path": "models/ann_model.keras",
+  "comparison_table_path": "models/comparison_table.txt"
+}
