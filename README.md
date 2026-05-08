@@ -2,7 +2,7 @@
 
 This project is an end-to-end system for pancreatic cancer (PDAC) risk prediction, demonstrating a full-stack AI workflow. It includes a Python ML pipeline (scikit-learn, Keras) for training, a FastAPI backend for serving models, and a Web/Android app  for user interaction. The application predicts PDAC risk from patient data and visualizes model performance through a comprehensive dashboard, highlighting key metrics for clinical risk assessment.
 
-End-to-end project for pancreatic cancer risk modeling and mobile consumption:
+End-to-end project for pancreatic cancer risk modeling and mobile App:
 
 - ML training pipeline (`ml/`)
 - FastAPI backend (`api/`)
