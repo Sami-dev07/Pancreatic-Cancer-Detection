@@ -1,63 +1,85 @@
-# Web App (VS Code launch)
+# Pancreatic Cancer Risk — Web Client
 
-This is a web version of the Android app screens:
+Production-style **React + Vite + TypeScript + Tailwind** frontend for the Pancreatic Cancer Risk Prediction system. It mirrors the Android app flow: collect clinical inputs, call your existing **FastAPI** `POST /predict`, and display results clearly.
 
-- **Home**
-- **Features (Predict)** → `GET /prediction/schema` + `POST /predict`
-- **Metrics** → `GET /model/summary`
-- **Plots** → `GET /model/performance/blocks` + images via `/static/plots/...`
+## Prerequisites
 
-## Run from VS Code
+- Node.js **18+** (20 LTS recommended)
+- A running FastAPI backend (see repo root `api/main.py`) with CORS enabled (your API already allows `*`)
 
-### 1) Start the API (FastAPI)
+## Setup
 
-From repo root:
-
-```cmd
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-python ml/train.py
-python api/main.py
-```
-
-### 2) Start the web app (Vite)
-
-In a new terminal:
-
-```cmd
+```bash
 cd web
 npm install
+```
+
+Create `.env` from the example:
+
+```bash
+copy .env.example .env   # Windows
+# or: cp .env.example .env
+```
+
+Set your API base URL (include scheme; trailing slash optional):
+
+```env
+VITE_API_BASE_URL=http://127.0.0.1:8000/
+```
+
+If `VITE_API_BASE_URL` is **empty**, the app uses a **mock prediction in development only**. In **production builds**, an empty URL causes submit to fail with a clear configuration error.
+
+## Scripts
+
+| Command         | Description                |
+|-----------------|----------------------------|
+| `npm run dev`   | Vite dev server (hot reload) |
+| `npm run build` | Typecheck + production bundle |
+| `npm run preview` | Serve the `dist/` folder locally |
+
+```bash
 npm run dev
+# open http://127.0.0.1:5173
 ```
 
-Open `http://127.0.0.1:5173`.
+## Features (web dashboard)
 
-## Notes
+- **Routes:** `/` (home), `/dashboard` (stats + Recharts), `/predict` (form), `/result/:id` (detail, PDF), `/history` (table), `/about`.
+- **Persistence:** each successful prediction is stored in `localStorage` (this browser only).
+- **API status:** header pill polls **GET** `{VITE_API_BASE_URL}/health`.
+- **Exports:** result PDF via jsPDF (`utils/pdfExport.ts`).
 
-- The Vite dev server proxies API calls to `http://127.0.0.1:8000` (see `web/vite.config.ts`).
-- If you get a `503 Model pipeline not found`, run `python ml/train.py` first.
+## API contract
 
-## Deploy (domain)
+- **POST** `{VITE_API_BASE_URL}/predict`
+- **GET** `{VITE_API_BASE_URL}/health` (optional; used for the status indicator)
+- **Body:** `{ "features": { "age", "sex", "plasma_CA19_9", "creatinine", "LYVE1", "REG1B", "TFF1" }, "model": null | "lr" | "rf" | "xgb" | "ann" }`
 
-In development, the web app calls relative paths like `/predict` and uses the Vite proxy.
-In production, set `VITE_API_BASE_URL` so the frontend calls your deployed API:
+Field names match your trained pipeline schema.
 
-1) Copy env file:
+## Deployment
 
-```cmd
-copy .env.example .env
-```
+### Vercel
 
-2) Set:
+1. Push the repo (or connect the `web` folder as a monorepo subfolder: set **Root Directory** to `web`).
+2. Framework preset: **Vite**.
+3. Build command: `npm run build`, output: `dist`.
+4. Environment variable: `VITE_API_BASE_URL` = your public API URL (e.g. `https://api.yourdomain.com/`).
 
-- `VITE_API_BASE_URL=https://<your-api-host>`
+### Netlify
 
-3) Build:
+1. New site from Git; base directory `web`.
+2. Build: `npm run build`, publish: `web/dist`.
+3. Site settings → Environment → add `VITE_API_BASE_URL`.
 
-```cmd
-npm run build
-```
+### Custom domain
 
-Deploy the generated `dist/` folder to your hosting provider (Vercel/Netlify/etc).
+Point DNS to Vercel/Netlify or your static host. Ensure the FastAPI server allows browser origins (your API uses permissive CORS; tighten for production if needed).
 
+## Security note
+
+This UI is for **research / education**. Always show the in-app disclaimer; do not present outputs as a diagnosis.
+
+## License
+
+Use in line with your university project and dataset terms.
