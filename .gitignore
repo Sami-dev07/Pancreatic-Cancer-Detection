@@ -5,6 +5,7 @@ node_modules/
 __pycache__/
 venv/
 .venv/
+.venv-tf/
 data/
 dataset/
 datasets/
